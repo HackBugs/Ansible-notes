@@ -247,10 +247,10 @@ This will show what changes would be made without actually applying them.
   ansible-playbook /home/ubuntu/update-servers.yml --check
   ```
 
-With this setup, you can efficiently manage updates across your server instances from the master instance using Ansible.
+- With this setup, you can efficiently manage updates across your server instances from the master instance using Ansible.
 ------------------------------------------------------------------------------------------------------------------------
 
-- (i) - To manage servers at a company level, you typically need a more comprehensive and structured approach. This includes:
+# (i) - To manage servers at a company level, you typically need a more comprehensive and structured approach. This includes:
 
 1. **Role-Based Playbooks**: Using Ansible roles to organize tasks into reusable units.
 2. **Advanced Configuration Management**: Managing more complex configurations, such as user accounts, firewall rules, and application deployments.
@@ -425,10 +425,10 @@ ansible-playbook /home/ubuntu/ansible/playbooks/site.yml
 - **Security Role**: Configures security settings like UFW and SSH.
 - **Nginx Role**: Installs and configures Nginx, deploys a web page.
 
-This structure allows for scalable and maintainable configuration management across multiple servers, addressing common company-level requirements such as security, compliance, and modularity.
+- This structure allows for scalable and maintainable configuration management across multiple servers, addressing common company-level requirements such as security, compliance, and modularity.
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-- (ii) - To create a more comprehensive and production-level Ansible configuration for managing servers, we'll need to incorporate several best practices:
+# (ii) - To create a more comprehensive and production-level Ansible configuration for managing servers, we'll need to incorporate several best practices:
 
 1. **Role-Based Architecture**: Organize tasks into roles.
 2. **Variables**: Use variables for configuration settings.
