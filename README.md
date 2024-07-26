@@ -194,7 +194,7 @@ This command will run the `update-servers.yml` playbook on all servers listed in
 #### **1. Verify Inventory Configuration**
 
 Ensure that your inventory file (`/etc/ansible/hosts`) is properly configured to include the servers:
-
+- INI Configuration
 ```ini
 [servers]
 server1 ansible_host=<server1-public-ip>
