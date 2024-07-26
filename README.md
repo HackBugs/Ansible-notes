@@ -656,6 +656,13 @@ First, let's create the required directories and files.
 mkdir -p ansible/{playbooks,roles/{common/{tasks,handlers},webserver/{tasks,handlers,templates,vars}},inventory}
 touch ansible/{ansible.cfg,playbooks/site.yml,inventory/hosts,roles/common/tasks/main.yml,roles/common/handlers/main.yml,roles/webserver/tasks/main.yml,roles/webserver/handlers/main.yml,roles/webserver/templates/index.html.j2,roles/webserver/vars/main.yml}
 ```
+-
+```sh
+mkdir -p /u01/app/oracle/product/19.0.0/dbhome_1
+mkdir -p /u02/oradata
+chown -R oracle:oinstall /u01 /u02
+chmod -R 775 /u01 /u02
+```
 
 ### 2. **Configure Inventory File**
 
