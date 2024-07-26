@@ -644,5 +644,201 @@ web_content: |
   ```bash
   ansible all -m shell -a "curl http://localhost"
   ```
+- This setup provides a more scalable and maintainable way to manage configurations using Ansible, suitable for more complex environments and real-world use cases.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# (iii) - Here's a step-by-step guide to set up the specified directory structure and files for managing three servers using Ansible. 
 
-This setup provides a more scalable and maintainable way to manage configurations using Ansible, suitable for more complex environments and real-world use cases.
+### 1. **Create the Directory Structure**
+
+First, let's create the required directories and files.
+
+```bash
+mkdir -p ansible/{playbooks,roles/{common/{tasks,handlers},webserver/{tasks,handlers,templates,vars}},inventory}
+touch ansible/{ansible.cfg,playbooks/site.yml,inventory/hosts,roles/common/tasks/main.yml,roles/common/handlers/main.yml,roles/webserver/tasks/main.yml,roles/webserver/handlers/main.yml,roles/webserver/templates/index.html.j2,roles/webserver/vars/main.yml}
+```
+
+### 2. **Configure Inventory File**
+
+Edit the inventory file to define your servers.
+
+#### Inventory File: `ansible/inventory/hosts`
+
+```ini
+[servers]
+server1 ansible_host=<server1-public-ip>
+server2 ansible_host=<server2-public-ip>
+server3 ansible_host=<server3-public-ip>
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_user=ubuntu
+ansible_ssh_private_key_file=/home/ubuntu/private-key.pem
+```
+
+### 3. **Create Ansible Configuration File**
+
+Configure the Ansible settings.
+
+#### Configuration File: `ansible/ansible.cfg`
+
+```ini
+[defaults]
+inventory = inventory/hosts
+remote_user = ubuntu
+private_key_file = /home/ubuntu/private-key.pem
+host_key_checking = False
+retry_files_enabled = False
+```
+
+### 4. **Create Playbook**
+
+Create the main playbook to apply configuration tasks.
+
+#### Playbook File: `ansible/playbooks/site.yml`
+
+```yaml
+---
+- name: Apply common configuration to all servers
+  hosts: servers
+  become: yes
+  roles:
+    - common
+    - webserver
+```
+
+### 5. **Create Roles**
+
+#### Role: Common
+
+##### Tasks File: `ansible/roles/common/tasks/main.yml`
+
+```yaml
+---
+- name: Update the package index
+  apt:
+    update_cache: yes
+
+- name: Upgrade all packages
+  apt:
+    upgrade: dist
+
+- name: Ensure Python is installed
+  apt:
+    name: python3
+    state: present
+```
+
+##### Handlers File: `ansible/roles/common/handlers/main.yml`
+
+```yaml
+---
+# No handlers for common role
+```
+
+#### Role: Webserver
+
+##### Tasks File: `ansible/roles/webserver/tasks/main.yml`
+
+```yaml
+---
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
+  notify:
+    - Restart nginx
+
+- name: Deploy a simple HTML page
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+    owner: www-data
+    group: www-data
+    mode: '0644'
+
+- name: Ensure nginx is running
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+```
+
+##### Handlers File: `ansible/roles/webserver/handlers/main.yml`
+
+```yaml
+---
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
+```
+
+##### Variables File: `ansible/roles/webserver/vars/main.yml`
+
+```yaml
+---
+web_content: |
+  <!DOCTYPE html>
+  <html>
+  <head>
+      <title>Welcome to My Server</title>
+  </head>
+  <body>
+      <h1>Hello, Ansible World!</h1>
+  </body>
+  </html>
+```
+
+##### Template File: `ansible/roles/webserver/templates/index.html.j2`
+
+```html
+{{ web_content }}
+```
+
+### Running the Playbook
+
+1. **Connect to the Master Instance:**
+
+   ```bash
+   ssh -i "ansible-master-key.pem" ubuntu@<master-instance-public-ip>
+   ```
+
+2. **Navigate to the Ansible Directory:**
+
+   ```bash
+   cd /home/ubuntu/ansible
+   ```
+
+3. **Run the Ansible Playbook:**
+
+   ```bash
+   ansible-playbook playbooks/site.yml
+   ```
+
+### Additional Commands
+
+- **Check Inventory:**
+
+  ```bash
+  ansible-inventory --list
+  ```
+
+- **Ping All Hosts:**
+
+  ```bash
+  ansible all -m ping
+  ```
+
+- **Run Playbook with Check Mode:**
+
+  ```bash
+  ansible-playbook playbooks/site.yml --check
+  ```
+
+- **Test Configuration:**
+
+  ```bash
+  ansible all -m shell -a "curl http://localhost"
+  ```
+
+This setup provides a scalable and maintainable way to manage configurations using Ansible, suitable for more complex environments and real-world use cases.
