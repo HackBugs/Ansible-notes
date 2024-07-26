@@ -136,5 +136,115 @@ ansible all -m ping
     ```bash
     ansible-playbook /path/to/your/playbook.yml
     ```
+---------------------------------------------------------------------------------------------------------------
+To update the three server instances from the master instance using Ansible, you can follow these steps:
 
-This guide will help you set up your EC2 instances, configure them for management with Ansible, and perform essential tasks. Let me know if you need more details or run into any issues!
+### Step-by-Step Guide to Update Server Instances Using Ansible
+
+#### 1. **Prepare Ansible Playbook**
+
+Create an Ansible playbook to handle the updates. This playbook will include tasks to update the server instances.
+
+1. **Create the Playbook File**
+
+On the master instance, create a playbook file, e.g., `update-servers.yml`:
+
+```bash
+nano /home/ubuntu/update-servers.yml
+```
+
+2. **Add the Following Content**
+
+```yaml
+---
+- name: Update all servers
+  hosts: servers
+  become: yes
+  tasks:
+    - name: Update the package index
+      apt:
+        update_cache: yes
+
+    - name: Upgrade all packages
+      apt:
+        upgrade: dist
+
+    - name: Remove unused packages
+      apt:
+        autoremove: yes
+```
+
+This playbook does the following:
+- Updates the package index.
+- Upgrades all installed packages.
+- Removes unused packages.
+
+#### 2. **Run the Ansible Playbook**
+
+Execute the playbook from the master instance to update the servers:
+
+```bash
+ansible-playbook /home/ubuntu/update-servers.yml
+```
+
+This command will run the `update-servers.yml` playbook on all servers listed in your Ansible inventory.
+
+### Additional Information
+
+#### **1. Verify Inventory Configuration**
+
+Ensure that your inventory file (`/etc/ansible/hosts`) is properly configured to include the servers:
+
+```ini
+[servers]
+server1 ansible_host=<server1-public-ip>
+server2 ansible_host=<server2-public-ip>
+server3 ansible_host=<server3-public-ip>
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_user=ubuntu
+ansible_ssh_private_key_file=/home/ubuntu/private-key.pem
+```
+
+#### **2. Check for Connectivity**
+
+Before running the playbook, you can check if Ansible can connect to all servers:
+
+```bash
+ansible all -m ping
+```
+
+#### **3. Run a Dry-Run**
+
+To ensure your playbook is correct without making changes, you can use the `--check` option:
+
+```bash
+ansible-playbook /home/ubuntu/update-servers.yml --check
+```
+
+This will show what changes would be made without actually applying them.
+
+### Summary of Commands
+
+- **Create/Modify Playbook:**
+  ```bash
+  nano /home/ubuntu/update-servers.yml
+  ```
+
+- **Run Ansible Playbook:**
+  ```bash
+  ansible-playbook /home/ubuntu/update-servers.yml
+  ```
+
+- **Check Connectivity:**
+  ```bash
+  ansible all -m ping
+  ```
+
+- **Dry-Run Playbook:**
+  ```bash
+  ansible-playbook /home/ubuntu/update-servers.yml --check
+  ```
+
+With this setup, you can efficiently manage updates across your server instances from the master instance using Ansible.
