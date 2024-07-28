@@ -848,10 +848,10 @@ web_content: |
   ansible all -m shell -a "curl http://localhost"
   ```
 
-This setup provides a scalable and maintainable way to manage configurations using Ansible, suitable for more complex environments and real-world use cases.
+- This setup provides a scalable and maintainable way to manage configurations using Ansible, suitable for more complex environments and real-world use cases.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
+# ☑️ New Method to install ansible from starting
 
-☑️ # New Method to install ansible from starting
 - https://youtu.be/kE-6KDyf-0o?si=P5glRR-WToQzdyWC
 ### Download on your EC2 Master machine with wget cmd
 - https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm   - Download latest
@@ -987,8 +987,8 @@ ansible all -b -m user -a "name=myuser groups=mygroup state=present"
 ansible all -b -m yum -a "name=nmap state=present"
 ```
 
-This should help you manage groups, users, and packages using Ansible effectively.
+- This should help you manage groups, users, and packages using Ansible effectively.
 
-
+### 
 
 
