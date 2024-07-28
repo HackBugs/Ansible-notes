@@ -871,6 +871,8 @@ This setup provides a scalable and maintainable way to manage configurations usi
 - .ssh
 - cd .ssh/
 - ssh-copy-id node1@ip_address - add key on node machine that will not ask everytime to host machine for password
+
+### This all in ad-hoc commands
 - cmd - ansible all --list-host
 - cmd - ansible demo --list-host
 - cmd - ansible demo[0] --list-host -- get single node info
@@ -878,6 +880,10 @@ This setup provides a scalable and maintainable way to manage configurations usi
 - cmd - ansible demo[0:10] --list-host -- get multipe node info
 - cmd - ansible demo -a "sudo yum install httpd -y" -- install anyting on node machine
 - cmd - ansible all -a "sudo yum install httpd -y"install anyting on all machine
+
+### This is module where we write yml file or script run one time to configure on every node
+- Ansible moudule --location /etc/ansible/hosts
+- 
 
 
 
