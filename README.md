@@ -883,8 +883,108 @@ This setup provides a scalable and maintainable way to manage configurations usi
 
 ### This is module where we write yml file or script run one time to configure on every node
 - Ansible moudule --location /etc/ansible/hosts
-- 
+- cmd - ansible all -b -m "sudo yum -a "pkg = httpd state = present" - m means module
+- cmd - ansible all -b -m "sudo yum -a "pkg = nmap state = present" - m means module
+  
+- install = present
+- Uninstall = absent
+- update = latest
 
+To create an Ansible playbook that adds a group, adds a user to that group, and installs a package, you can follow this structure. This playbook will use the appropriate Ansible modules to perform these tasks.
+
+### Ansible Playbook
+
+```yaml
+---
+- name: Manage groups, users, and install packages
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Add a group
+      group:
+        name: mygroup
+        state: present
+
+    - name: Add a user and add to group
+      user:
+        name: myuser
+        groups: mygroup
+        state: present
+
+    - name: Install nmap package
+      yum:
+        name: nmap
+        state: present
+```
+
+### Running the Playbook
+
+Save the above content to a file named `playbook.yml`. Then, run the playbook using the following command:
+
+```bash
+ansible-playbook -i inventory playbook.yml
+```
+
+Where `inventory` is your inventory file specifying the hosts you want to run this playbook against.
+
+### Ansible Command Example
+
+If you prefer to run tasks directly using the Ansible command line, here’s how you can do it:
+
+1. **Add a group**:
+    ```bash
+    ansible all -b -m group -a "name=mygroup state=present"
+    ```
+
+2. **Add a user and add to group**:
+    ```bash
+    ansible all -b -m user -a "name=myuser groups=mygroup state=present"
+    ```
+
+3. **Install nmap package**:
+    ```bash
+    ansible all -b -m yum -a "name=nmap state=present"
+    ```
+
+### Box Version (for Copy-Pasting)
+
+```yaml
+---
+- name: Manage groups, users, and install packages
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Add a group
+      group:
+        name: mygroup
+        state: present
+
+    - name: Add a user and add to group
+      user:
+        name: myuser
+        groups: mygroup
+        state: present
+
+    - name: Install nmap package
+      yum:
+        name: nmap
+        state: present
+```
+
+```bash
+# Add a group
+ansible all -b -m group -a "name=mygroup state=present"
+
+# Add a user and add to group
+ansible all -b -m user -a "name=myuser groups=mygroup state=present"
+
+# Install nmap package
+ansible all -b -m yum -a "name=nmap state=present"
+```
+
+This should help you manage groups, users, and packages using Ansible effectively.
 
 
 
