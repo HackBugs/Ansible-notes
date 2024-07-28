@@ -849,3 +849,27 @@ web_content: |
   ```
 
 This setup provides a scalable and maintainable way to manage configurations using Ansible, suitable for more complex environments and real-world use cases.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+☑️ # New Method to install ansible from starting
+- https://youtu.be/kE-6KDyf-0o?si=P5glRR-WToQzdyWC
+### Download on your EC2 Master machine with wget cmd
+- https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm   - Download latest
+- yum install epel/epel-release-latest-9.noarch.rpm
+- yum update -y
+- yum install git python python-level python-pip openssl ansible -y
+- vi /etc/ansible/hosts
+- inside "hosts" file make group with [] like [host] paste ip of node, like [developer] paste ip of node, like [Tester] paste ip of node,
+- vi /etc/ansible/ansible.cfg - write YAML code what you want configure on host node pc
+- inside of "ansible.cfg" delete # this is for comment as per your requrement
+- cmd - visudo
+- vi /etc/ssh/sshd.config -- delete # this is for comment as per your requrement
+- cmd - service sshd restart
+- ssh "node-ips-paste"
+- 
+
+
+
+
+
+
