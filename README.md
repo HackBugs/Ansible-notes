@@ -885,6 +885,7 @@ This setup provides a scalable and maintainable way to manage configurations usi
 - Ansible moudule --location /etc/ansible/hosts
 - cmd - ansible all -b -m "sudo yum -a "pkg = httpd state = present" - m means module
 - cmd - ansible all -b -m "sudo yum -a "pkg = nmap state = present" - m means module
+- cmd ansible demo -m setup
   
 - install = present
 - Uninstall = absent
