@@ -876,6 +876,8 @@ This setup provides a scalable and maintainable way to manage configurations usi
 - cmd - ansible demo[0] --list-host -- get single node info
 - cmd - ansible demo[1] --list-host -- get single node info
 - cmd - ansible demo[0:10] --list-host -- get multipe node info
+- cmd - ansible demo -a "sudo yum install httpd -y" -- install anyting on node machine
+- cmd - ansible all -a "sudo yum install httpd -y"install anyting on all machine
 
 
 
