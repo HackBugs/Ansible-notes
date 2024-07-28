@@ -866,7 +866,13 @@ This setup provides a scalable and maintainable way to manage configurations usi
 - vi /etc/ssh/sshd.config -- delete # this is for comment as per your requrement
 - cmd - service sshd restart
 - ssh "node-ips-paste"
-- 
+- ssh-keygen - generate the key on host-master machine that will not ask everytime to node machine for password
+- ls -a
+- .ssh
+- cd .ssh/
+- ssh-copy-id node1@ip_address - add key on node machine that will not ask everytime to host machine for password
+- cmd - ansible all --list-host
+- cmd - ansible demo --list-host
 
 
 
