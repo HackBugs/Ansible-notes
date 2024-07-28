@@ -989,6 +989,4 @@ ansible all -b -m yum -a "name=nmap state=present"
 
 - This should help you manage groups, users, and packages using Ansible effectively.
 
-### 
-
 
