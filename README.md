@@ -894,6 +894,8 @@ This setup provides a scalable and maintainable way to manage configurations usi
 To create an Ansible playbook that adds a group, adds a user to that group, and installs a package, you can follow this structure. This playbook will use the appropriate Ansible modules to perform these tasks.
 
 ### Ansible Playbook
+- follow indentation
+- https://youtu.be/uyFrrKju4Es?si=vN26RbUmsyBdLCYn
 
 ```yaml
 ---
@@ -920,7 +922,6 @@ To create an Ansible playbook that adds a group, adds a user to that group, and 
 ```
 
 ### Running the Playbook
-- https://youtu.be/uyFrrKju4Es?si=vN26RbUmsyBdLCYn
 
 Save the above content to a file named `playbook.yml`. Then, run the playbook using the following command:
 
