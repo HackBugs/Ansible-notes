@@ -873,6 +873,8 @@ This setup provides a scalable and maintainable way to manage configurations usi
 - ssh-copy-id node1@ip_address - add key on node machine that will not ask everytime to host machine for password
 - cmd - ansible all --list-host
 - cmd - ansible demo --list-host
+- cmd - ansible demo[0] --list-host -- get single node info
+- cmd - ansible demo[1] --list-host -- get single node info
 
 
 
