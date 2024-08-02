@@ -53,7 +53,7 @@ server3 ansible_host=<server3-public-ip>
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3
 ansible_user=ubuntu
-ansible_ssh_private_key_file=/path/to/your/private-key.pem
+ansible_ssh_private_key_file=/path/to/your/master-private-key.pem
 ```
 
 Replace `<server1-public-ip>`, `<server2-public-ip>`, `<server3-public-ip>`, and `/path/to/your/private-key.pem` with the actual IPs and path to your private key file.
